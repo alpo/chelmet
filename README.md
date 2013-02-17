@@ -27,3 +27,6 @@ http://www.youtube.com/watch?v=gnDtS0zyLBA
 http://www.youtube.com/watch?v=7c-0iwBEswE
 
 В файле rel_*.txt порядок столбцов -- время, интегральная яркость, яркость помеченного куска неба, интегральная яркость относительно неба.
+
+Метеорит,Челябинск(360p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=hD2iySyG090
