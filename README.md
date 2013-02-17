@@ -19,3 +19,9 @@ http://www.youtube.com/watch?v=odKjwrjIM-k
 Коркино
 54.90
 61.41
+
+Метеорит в Каменске-Уральском 15.02.2013(360p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=gnDtS0zyLBA
+
+Падение метеорита(720p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=7c-0iwBEswE
