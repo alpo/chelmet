@@ -126,3 +126,21 @@ for job in jobs:
 
     np.savetxt(txtfn, np.column_stack((interp_time,
         interp_bri, interp_snd)), fmt='%4.1f %10.1f %10.1f')
+brightness)
+    interp_snd = np.interp(interp_time, snd_time, snd_level)
+
+    plt.figure()
+    #plt.plot(vid_time, brightness, snd_time, snd_level * 20)
+    plt.plot(interp_time, interp_bri, interp_time, interp_snd * 20)
+    title = infn.replace('_', r'\_')
+    plt.title(title)
+    pngfn = infn[:-4] + '.png'
+    plt.savefig(pngfn)
+
+    if job['show']:
+        plt.show()
+
+    txtfn = infn[:-4] + '.txt'
+
+    np.savetxt(txtfn, np.column_stack((interp_time,
+        interp_bri, interp_snd)), fmt='%4.1f %10.1f %10.1f')

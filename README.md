@@ -30,3 +30,9 @@ http://www.youtube.com/watch?v=7c-0iwBEswE
 
 Метеорит,Челябинск(360p_H.264-AAC).mp4
 http://www.youtube.com/watch?v=hD2iySyG090
+090
+
+метеорит над челябинском(360p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=mpKBXsowQfE
+55°0'29.18''С  61°12'47.24''В
+
