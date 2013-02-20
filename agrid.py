@@ -15,8 +15,8 @@ logger = logging.getLogger('agrid')
 
 jobs = [
     {'infn': u'Коркино. Метеорит(360p_H.264-AAC).txt',
-    'lat': 54.90,
-    'lon': 61.41
+    'lat': 54.8907,
+    'lon': 61.3997
     },
     {'infn': u'МЕТЕОРИТ 15 02 2013г(360p_H.264-AAC).txt',
     'lat': 54.76,
@@ -30,10 +30,15 @@ jobs = [
     'lat': 55.121386,
     'lon': 61.468978
     },
+    {'infn': u'метеорит над челябинском(360p_H.264-AAC).txt',
+    'lat': 55.0081,
+    'lon': 61.2131
+    },
+
 ]
 
 deglat = 111.11
-deglon = 111.11 * math.cos(61.4 / 180.0 * math.pi)
+deglon = 111.11 * math.cos(55 / 180.0 * math.pi)
 
 logger.info('Degree of lon %f', deglon)
 
@@ -50,6 +55,7 @@ snd_sum = np.zeros_like(lat_km_grid)
 snd_prod = np.zeros_like(lat_km_grid)
 
 for job in jobs:
+    logger.info('File %s', job['infn'])
     data = np.loadtxt(job['infn'])
     time = data[:, 0]
     bri = data[:, 1]
@@ -86,30 +92,28 @@ logger.debug(np.max(snd_sum))
 logger.debug(np.min(snd_prod))
 logger.debug(np.max(snd_prod))
 
+lonlat_extent = [-50 / deglon + 61.468978,
+                50 / deglon + 61.468978,
+                -70 / deglat + 55.121386,
+                55.121386]
+
+heightlat_extent = [0,
+                40,
+                70 / deglat + 61.468978,
+                61.468978]
+
+heightlon_extent = [0,
+                40,
+                -50 / deglon + 55.121386,
+                50 / deglon + 55.121386]
+
 plt.figure()
-plt.imshow(np.sum(snd_sum, axis=2), extent=[-50, 50, 70, 0])
-plt.xlabel('km to east from (55.121386,61.468978)')
-plt.ylabel('km to south from (55.121386,61.468978)')
+plt.imshow(np.sum(snd_sum, axis=2), extent=lonlat_extent)
+#plt.imshow(np.sum(snd_sum, axis=2), extent=[-50, 50, 70, 0])
+plt.xlabel('E')
+plt.ylabel('N')
 plt.title('sum integrated by height')
 plt.savefig('sum_integrated_by_height.png')
-plt.figure()
-plt.imshow(np.sum(snd_sum, axis=1), extent=[0, 40, 70, 0])
-plt.xlabel('height, km')
-plt.ylabel('km to south from (55.121386,61.468978)')
-plt.title('sum integrated by longitude')
-plt.savefig('sum_integrated_by_longitude.png')
-plt.figure()
-plt.imshow(np.sum(snd_sum, axis=0), extent=[0, 40, -50, 50])
-plt.xlabel('height, km')
-plt.ylabel('km to east from (55.121386,61.468978)')
-plt.title('sum integrated by latitude')
-plt.savefig('sum_integrated_by_latitude.png')
-#plt.axis('image')
-
-#plt.imshow(rev_snd)
-plt.show()
-
-egrated_by_height.png')
 plt.figure()
 plt.imshow(np.sum(snd_sum, axis=1), extent=[0, 40, 70, 0])
 plt.xlabel('height, km')
