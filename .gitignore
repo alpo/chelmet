@@ -1,0 +1,10 @@
+*.wav
+*.mp4
+*.gnumeric
+*.jpg
+dump/
+*.ipynb
+*.sublime-*
+.project
+.pydevproject
+.settings/

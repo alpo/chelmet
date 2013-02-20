@@ -35,3 +35,15 @@ http://www.youtube.com/watch?v=hD2iySyG090
 http://www.youtube.com/watch?v=mpKBXsowQfE
 55°0'29.18''С  61°12'47.24''В
 
+В челябинске упал самолет или метеорит, смотреть с 0_40(360p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=Qin41lP9r2U
+
+Падение метеорита в Челябинске Meteorite(360p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=xanoIUJ9kKU
+
+Метеорит над Челябинской областью(360p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=vl_kD8WtQyY
+
+вспышка над Челябинском(360p_H.264-AAC).mp4
+http://www.youtube.com/watch?v=4ZxXYscmgRg
+

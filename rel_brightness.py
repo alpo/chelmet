@@ -50,6 +50,15 @@ jobs = [
             'width': 460,
             'height': 220}
     },
+    {'infn': u'Метеорит,Челябинск(360p_H.264-AAC).mp4',
+    'fps': 30,
+    'insert_list': [],
+    'show': True,
+    'sky': {'left': 0,
+            'top': 0,
+            'width': 50,
+            'height': 50},
+    },
     # {'infn': u'Падение метеорита(720p_H.264-AAC).mp4',
     # 'fps': 29.97,
     # 'insert_list': [],
@@ -72,8 +81,11 @@ for job in jobs:
         frame = cv.QueryFrame(capture)
         if frame is None:
             break
-        if frame_num >= 450:
-            break
+        # if frame_num < 450:
+        #     frame_num += 1
+        #     continue
+        # if frame_num == 450:
+        #     frame_num = 0
         grey = cv.CreateImage(cv.GetSize(frame),
             cv.IPL_DEPTH_8U, 1)
         cv.CvtColor(frame, grey, cv.CV_RGB2GRAY)
