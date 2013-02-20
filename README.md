@@ -17,8 +17,8 @@ http://www.youtube.com/watch?v=2Gc1HgO5hNY
 Коркино. Метеорит(360p_H.264-AAC).mp4
 http://www.youtube.com/watch?v=odKjwrjIM-k
 Коркино
-54.90
-61.41
+54.8907
+61.3997
 
 Метеорит в Каменске-Уральском 15.02.2013(360p_H.264-AAC).mp4
 http://www.youtube.com/watch?v=gnDtS0zyLBA
@@ -30,7 +30,6 @@ http://www.youtube.com/watch?v=7c-0iwBEswE
 
 Метеорит,Челябинск(360p_H.264-AAC).mp4
 http://www.youtube.com/watch?v=hD2iySyG090
-090
 
 метеорит над челябинском(360p_H.264-AAC).mp4
 http://www.youtube.com/watch?v=mpKBXsowQfE
