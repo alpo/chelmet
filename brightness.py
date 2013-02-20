@@ -20,25 +20,41 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('brightness')
 
 jobs = [
-    {'infn': u'Коркино. Метеорит(360p_H.264-AAC).mp4',
-    'fps': 29.97,
-    'insert_list': [{'point': 19, 'correction': 77}],
-    'show': False,
-    },
-    {'infn': u'МЕТЕОРИТ 15 02 2013г(360p_H.264-AAC).mp4',
-    'fps': 25,
-    'insert_list': [{'point': 18, 'correction': 65}],
-    'show': False,
-    },
-    {'infn': u'ВЗРЫВ ЧЕЛЯБИНСК(360p_H.264-AAC)-cut.mp4',
-    'fps': 20,
+    # {'infn': u'Коркино. Метеорит(360p_H.264-AAC).mp4',
+    # 'fps': 29.97,
+    # 'insert_list': [{'point': 19, 'correction': 77}],
+    # 'show': False,
+    # },
+    # {'infn': u'МЕТЕОРИТ 15 02 2013г(360p_H.264-AAC).mp4',
+    # 'fps': 25,
+    # 'insert_list': [{'point': 18, 'correction': 65}],
+    # 'show': False,
+    # },
+    # {'infn': u'ВЗРЫВ ЧЕЛЯБИНСК(360p_H.264-AAC)-cut.mp4',
+    # 'fps': 20,
+    # 'insert_list': [],
+    # 'show': False,
+    # },
+    # {'infn': u'Армагеддон в Челябинске! (съемка камеры наблюдения)(360p_H.264-AAC).mp4',
+    # 'fps': 25,
+    # 'insert_list': [{'point': 70, 'correction': 87}],
+    # 'show': True,
+    # },
+
+    # {'infn': u'Метеорит в Каменске-Уральском 15.02.2013(360p_H.264-AAC).mp4',
+    # 'fps': 30,
+    # 'insert_list': [],
+    # 'show': False,
+    # },
+    # {'infn': u'Падение метеорита(720p_H.264-AAC).mp4',
+    # 'fps': 29.97,
+    # 'insert_list': [],
+    # 'show': False,
+    # },
+    {'infn': u'метеорит над челябинском(360p_H.264-AAC).mp4',
+    'fps': 22.745,
     'insert_list': [],
     'show': False,
-    },
-    {'infn': u'Армагеддон в Челябинске! (съемка камеры наблюдения)(360p_H.264-AAC).mp4',
-    'fps': 25,
-    'insert_list': [{'point': 70, 'correction': 87}],
-    'show': True,
     },
 ]
 
@@ -109,24 +125,6 @@ for job in jobs:
     max_time = np.max(snd_time)
     interp_time = np.arange(0, max_time, time_step)
     interp_bri = np.interp(interp_time, vid_time, brightness)
-    interp_snd = np.interp(interp_time, snd_time, snd_level)
-
-    plt.figure()
-    #plt.plot(vid_time, brightness, snd_time, snd_level * 20)
-    plt.plot(interp_time, interp_bri, interp_time, interp_snd * 20)
-    title = infn.replace('_', r'\_')
-    plt.title(title)
-    pngfn = infn[:-4] + '.png'
-    plt.savefig(pngfn)
-
-    if job['show']:
-        plt.show()
-
-    txtfn = infn[:-4] + '.txt'
-
-    np.savetxt(txtfn, np.column_stack((interp_time,
-        interp_bri, interp_snd)), fmt='%4.1f %10.1f %10.1f')
-brightness)
     interp_snd = np.interp(interp_time, snd_time, snd_level)
 
     plt.figure()
