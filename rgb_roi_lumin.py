@@ -133,9 +133,12 @@ for job in jobs:
         for i, roi in enumerate(job_rois):
             cv.SetImageROI(frame, tuple(roi))
             avg = cv.Avg(frame)
-            brightness[3 * i].append(avg[0])
-            brightness[3 * i + 1].append(avg[1])
-            brightness[3 * i + 2].append(avg[2])
+            # brightness[3 * i].append(avg[0])
+            # brightness[3 * i + 1].append(avg[1])
+            # brightness[3 * i + 2].append(avg[2])
+            brightness[i].append(avg[0])
+            brightness[i + len(job_rois)].append(avg[1])
+            brightness[i + 2 * len(job_rois)].append(avg[2])
         frame_num += 1
 
     frame_nums = np.arange(frame_num)
