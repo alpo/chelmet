@@ -98,7 +98,7 @@ def error_function2(x, I, m, penl):
     f = x[m + 1: 2 * m + 1]
     e1 = np.linalg.norm(np.diff(s, 2)) ** 2
     e2 = np.linalg.norm(np.diff(f, 2)) ** 2
-    e = e + penl * e1 + penl * e2
+    e = e + penl * e1 + 0.0 * penl * e2
     return e
 
 
@@ -132,12 +132,14 @@ def grad(x, I, m, penl):
     sek = ek.sum(axis=1)
     dedfj = -2 * s * sek
 
-    dedfj[0] += np.dot(f[0:3], [2, -4, 2]) * penl
-    dedfj[1] += np.dot(f[0:4], [-4, 10, -8, 2]) * penl
+    penl2 = penl * 0.0
+
+    dedfj[0] += np.dot(f[0:3], [2, -4, 2]) * penl2
+    dedfj[1] += np.dot(f[0:4], [-4, 10, -8, 2]) * penl2
     for i in xrange(2, len(dedfj) - 2):
-        dedfj[i] += np.dot(f[i - 2:i + 3], [2, -8, 12, -8, 2]) * penl
-    dedfj[-2] += np.dot(f[-4:], [2, -8, 10, -4]) * penl
-    dedfj[-1] += np.dot(f[-3:], [2, -4, 2]) * penl
+        dedfj[i] += np.dot(f[i - 2:i + 3], [2, -8, 12, -8, 2]) * penl2
+    dedfj[-2] += np.dot(f[-4:], [2, -8, 10, -4]) * penl2
+    dedfj[-1] += np.dot(f[-3:], [2, -4, 2]) * penl2
 
     grad[m + 1: 2 * m + 1] = dedfj
 
@@ -156,7 +158,7 @@ for job in jobs:
     logger.debug(data.shape)
 
 #    gamma = 2.2
-    step = 2
+    step = 1
 
     vid_time = data[:500:step, 0]
     Isrgb = data[:500:step, 1:] / 255.0
@@ -181,9 +183,9 @@ for job in jobs:
     ub = np.ones(2 * m + n)
     ub[m:] = np.inf
 
-    penl = 0.1
+    penl = 00.0
 
-    p = NLP(error_function2, x0, ftol=1e-10, maxIter=1e5, maxFunEvals=1e7, lb=lb, ub=ub)
+    p = NLP(error_function2, x0, ftol=1e-8, maxIter=1e5, maxFunEvals=1e7, lb=lb, ub=ub)
     p.args.f = (I, m, penl / step ** 2)
     p.df = grad
     p.checkdf()

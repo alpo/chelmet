@@ -12,25 +12,25 @@ logger = logging.getLogger('agrid')
 
 jobs = [
     {'infn': u'Коркино. Метеорит(360p_H.264-AAC).txt',
-    'lat': 54.8907,
-    'lon': 61.3997
-    },
+     'lat': 54.8907,
+     'lon': 61.3997
+     },
     {'infn': u'МЕТЕОРИТ 15 02 2013г(360p_H.264-AAC).txt',
-    'lat': 54.76,
-    'lon': 61.33
-    },
+     'lat': 54.76,
+     'lon': 61.33
+     },
     {'infn': u'ВЗРЫВ ЧЕЛЯБИНСК(360p_H.264-AAC)-cut.txt',
-    'lat': 55.149944,
-    'lon': 61.363964
-    },
+     'lat': 55.149944,
+     'lon': 61.363964
+     },
     {'infn': u'Армагеддон в Челябинске! (съемка камеры наблюдения)(360p_H.264-AAC).txt',
-    'lat': 55.121386,
-    'lon': 61.468978
-    },
-    {'infn': u'метеорит над челябинском(360p_H.264-AAC).txt',
-    'lat': 55.0081,
-    'lon': 61.2131
-    },
+     'lat': 55.121386,
+     'lon': 61.468978
+     },
+    # {'infn': u'метеорит над челябинском(360p_H.264-AAC).txt',
+    #  'lat': 55.0081,
+    #  'lon': 61.2131
+    #  },
 
 ]
 
@@ -51,9 +51,10 @@ lower_lim = 0
 upper_lim = 30
 
 lat_km_grid, lon_km_grid, h_grid = np.mgrid[south_lim:north_lim:km_step,
-            west_lim:east_lim:km_step, lower_lim:upper_lim:km_step]
+                                            west_lim:east_lim:km_step,
+                                            lower_lim:upper_lim:km_step]
 
-#logger.info('Grid size %d MB', lat_km_grid.nbytes / 2 ** 20)
+# logger.info('Grid size %d MB', lat_km_grid.nbytes / 2 ** 20)
 
 timecorr_step = 0.25
 
@@ -63,7 +64,7 @@ timecorr_grid = np.arange(-20, 20, timecorr_step)
 #     lat_km_grid.shape[2], timecorr_grid.shape[0]))
 
 snd_prod = np.ones((lat_km_grid.shape[0], lat_km_grid.shape[1],
-    lat_km_grid.shape[2], timecorr_grid.shape[0]))
+                    lat_km_grid.shape[2], timecorr_grid.shape[0]))
 logger.info('Grid size %d MB', snd_prod.nbytes / 2 ** 20)
 
 sigma = 2
@@ -78,7 +79,7 @@ for job in jobs:
     bri = data[:, 1]
     snd = data[:, 2]
     snd /= np.max(snd)
-    snd[snd < 0.7] = 0
+    snd[snd < 0.5] = 0
     snd = np.convolve(snd, gauss_smooth, 'same')
 
     idx0 = np.argmax(bri)
@@ -90,7 +91,8 @@ for job in jobs:
     dist_lon_grid = (job['lon'] - zero_ll['lon']) * deglon - lon_km_grid
     dist_h_grid = h_grid
 
-    dist_grid = np.sqrt(dist_lat_grid ** 2 + dist_lon_grid ** 2 + dist_h_grid ** 2)
+    dist_grid = np.sqrt(
+        dist_lat_grid ** 2 + dist_lon_grid ** 2 + dist_h_grid ** 2)
     time_grid = dist_grid / 0.313
 
     for icorr, time_corr in enumerate(timecorr_grid):
@@ -106,9 +108,9 @@ logger.debug(np.max(snd_prod))
 logger.debug(snd_prod.shape)
 
 lonlat_extent = [61.468978 + west_lim / deglon,
-                61.468978 + east_lim / deglon,
-                55.121386 + south_lim / deglat,
-                55.121386 + north_lim / deglat]
+                 61.468978 + east_lim / deglon,
+                 55.121386 + south_lim / deglat,
+                 55.121386 + north_lim / deglat]
 
 time_integr = np.sum(np.sum(np.sum(snd_prod, axis=0), axis=0), axis=0)
 # все индексы схлопнулись по очереди остался тот который был 4
@@ -156,7 +158,7 @@ yc = (m01 / m00 * km_step + west_lim) / deglon + zero_ll['lon']
 xs = mu20 / m00 * km_step / deglat
 ys = mu02 / m00 * km_step / deglon
 logger.info('moments latlon latc %f lonc %f lats %f lons %f',
-    xc, yc, xs, ys)
+            xc, yc, xs, ys)
 
 cvmat_lat_height = cv.fromarray(prod_time_lon_int)
 moments = cv.Moments(cvmat_lat_height)
@@ -170,29 +172,29 @@ yc = (m01 / m00 * km_step + south_lim) / deglat + zero_ll['lat']
 xs = mu20 / m00 * km_step
 ys = mu20 / m00 * km_step / deglat
 logger.info('moments latlon heic %f latc %f heis %f lats %f',
-    xc, yc, xs, ys)
+            xc, yc, xs, ys)
 
 
 plt.figure()
 plt.imshow(np.log(prod_time_height_int),
-    cmap=plt.cm.gray_r, origin='lower',
-    extent=lonlat_extent)
+           cmap=plt.cm.gray_r, origin='lower',
+           extent=lonlat_extent)
 plt.xlabel('E')
 plt.ylabel('N')
 plt.title('prod integrated by height')
 plt.savefig('prod_integrated_by_height.png')
 plt.figure()
 plt.imshow(np.log(prod_time_lon_int),
-    cmap=plt.cm.gray_r, origin='lower',
-    extent=[lower_lim, upper_lim, south_lim, north_lim])
+           cmap=plt.cm.gray_r, origin='lower',
+           extent=[lower_lim, upper_lim, south_lim, north_lim])
 plt.xlabel('height, km')
 plt.ylabel('km to north from (55.121386,61.468978)')
 plt.title('prod integrated by longitude')
 plt.savefig('prod_integrated_by_longitude.png')
 plt.figure()
 plt.imshow(np.log(prod_time_lat_int),
-    cmap=plt.cm.gray_r, origin='lower',
-    extent=[lower_lim, upper_lim, west_lim, east_lim])
+           cmap=plt.cm.gray_r, origin='lower',
+           extent=[lower_lim, upper_lim, west_lim, east_lim])
 plt.xlabel('height, km')
 plt.ylabel('km to east from (55.121386,61.468978)')
 plt.title('prod integrated by latitude')
@@ -220,6 +222,5 @@ plt.savefig('prod_integrated_by_latitude.png')
 # plt.title('prod integrated by latitude')
 # plt.savefig('prod_integrated_by_latitude.png')
 
-#plt.imshow(rev_snd)
+# plt.imshow(rev_snd)
 plt.show()
-
